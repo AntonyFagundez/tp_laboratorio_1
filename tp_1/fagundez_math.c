@@ -20,10 +20,17 @@ float division(int firstNum, int secNumb)
     return ((float)firstNum)/secNumb;
 }
 
-long long int factorial(int num)
+unsigned long long factorial(int num)
 {
-  if (num == 0) // Base case
-    return 1;
+  unsigned long long res;
+  if (num == 0)
+  {// Base case
+      res =  1;
+  }
   else
-    return (num*factorial(num-1));
+  {
+    res = (num*factorial(num-1));
+  }
+
+  return res;
 }

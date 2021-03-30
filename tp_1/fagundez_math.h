@@ -43,6 +43,6 @@ float division(int x, int y);
  * \return long long int factorial
  *
  */
-long long int factorial(int);
+unsigned long long factorial(int);
 
 #endif // FAGUNDEZ_MATH_H_INCLUDED
