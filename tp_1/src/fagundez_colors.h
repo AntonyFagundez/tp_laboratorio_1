@@ -1,11 +1,12 @@
-#ifndef COLORS_H_INCLUDED
-#define COLORS_H_INCLUDED
-
 /*
- * This is free and unencumbered software released into the public domain.
+ * fagundez_colors.h
  *
- * For more information, please refer to <https://unlicense.org>
+ *  Created on: 12 abr. 2021
+ *      Author: Antony
  */
+
+#ifndef FAGUNDEZ_COLORS_H_
+#define FAGUNDEZ_COLORS_H_
 
 //Regular text
 #define BLK "\e[0;30m"
@@ -80,4 +81,4 @@
 //Reset
 #define RESET "\e[0m"
 
-#endif // COLORS_H_INCLUDED
+#endif /* FAGUNDEZ_COLORS_H_ */

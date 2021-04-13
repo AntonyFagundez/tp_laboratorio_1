@@ -1,5 +1,13 @@
-#ifndef FAGUNDEZ_MATH_H_INCLUDED
-#define FAGUNDEZ_MATH_H_INCLUDED
+/*
+ * fagundez_math.h
+ *
+ *  Created on: 12 abr. 2021
+ *      Author: Antony
+ */
+
+#ifndef FAGUNDEZ_MATH_H_
+#define FAGUNDEZ_MATH_H_
+
 
 /** \brief Funcion para realizar suma de dos enteros
  *
@@ -45,4 +53,4 @@ float division(int x, int y);
  */
 unsigned long long factorial(int);
 
-#endif // FAGUNDEZ_MATH_H_INCLUDED
+#endif /* FAGUNDEZ_MATH_H_ */

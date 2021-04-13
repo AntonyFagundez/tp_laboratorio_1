@@ -1,3 +1,10 @@
+/*
+ * fagundez_math.c
+ *
+ *  Created on: 12 abr. 2021
+ *      Author: Antony
+ */
+
 #include "fagundez_math.h"
 
 int sum(int firstNum, int secNumb)
@@ -34,3 +41,4 @@ unsigned long long factorial(int num)
 
   return res;
 }
+
