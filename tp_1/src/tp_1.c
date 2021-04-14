@@ -21,6 +21,8 @@
 #define OBTENER '4'
 #define SALIR '5'
 
+#define MAX_INT_FACT 19
+
 char menu(int*, int*, int, int);
 char getChar(char*);
 int getInt(char *texto);
@@ -32,6 +34,8 @@ int main(void)
 	setbuf(stdout, NULL);
 	int primNum;
 	int segNum;
+	int flagFactPrim;
+	int flagFactSeg;
 	int flagPrimNum;
 	int flagSegNum;
 	int validDiv;
@@ -45,6 +49,8 @@ int main(void)
 
 	char resp;
 
+	flagFactPrim= 0;
+	flagFactSeg= 0;
 	flagPrimNum = 0;
 	flagSegNum = 0;
 	validDiv = 0;
@@ -77,65 +83,75 @@ int main(void)
 				else
 				{
 
-					printf(
-							BHRED "Segundo operando invalido para realizar division.. " BHYEL "No debe ser 0\n" RESET);
+					printf(BHRED "Segundo operando invalido para realizar division.. " BHYEL "No debe ser 0\n" RESET);
 					resetFlag(&validDiv);
 				}
-				if (primNum < 0)
+				if (primNum < 0 || primNum > MAX_INT_FACT)
 				{
-					printf(
-							BHRED "Valor invalido para sacar factorial del primer operando. " BHYEL "No debe ser negativo\n" RESET);
+					printf(BHRED "Valor invalido para sacar factorial del primer operando. " BHYEL "No debe ser negativo ni debe ser mayor a %d\n" RESET, MAX_INT_FACT);
+					resetFlag(&flagFactPrim);
 				}
 				else
 				{
 					resultFactPrim = factorial(primNum);
+					activarFlag(&flagFactPrim);
 				}
-				if (segNum < 0)
+				if (segNum < 0 || segNum > MAX_INT_FACT)
 				{
-					printf(
-							BHRED "Valor invalido para sacar factorial del segundo operando. "BHYEL "No debe ser negativo\n" RESET);
+					printf(BHRED "Valor invalido para sacar factorial del segundo operando. "BHYEL "No debe ser negativo ni debe ser mayor a %d\n" RESET, MAX_INT_FACT);
+					resetFlag(&flagFactSeg);
 				}
 				else
 				{
 					resultFactSeg = factorial(segNum);
+					activarFlag(&flagFactSeg);
 				}
-				if (validDiv)
+				if (validDiv && flagFactSeg && flagFactPrim)
 				{ //Se deja el mensaje visible para el usuario durante un segundo y medio
-					printf(
-							BHGRN "Todas las operaciones se realizaron satisfactoriamente");
+					printf(BHGRN "Todas las operaciones se realizaron satisfactoriamente");
 				}
 
 				Sleep(1500);
 			}
 			else
 			{
-				printf(
-						BHYEL "No puede realizar todas las operaciones si no ingresa ambos operandos\n" RESET);
+				printf(BHYEL "No puede realizar todas las operaciones si no ingresa ambos operandos\n" RESET);
 				Sleep(1500);
 			}
 			break;
 		case OBTENER:
 			if (flagPrimNum && flagSegNum)
 			{
-				printf("El resultado de A" BHMAG "+"RESET"B es %d\n",
-						resultSum);
+				printf("El resultado de A" BHMAG "+"RESET"B es %d\n", resultSum);
 				printf("El resultado de A"BHMAG"-"RESET"B es %d\n", resultRes);
 				if (validDiv)
 				{
-					printf("El resultado de A"BHMAG"/"RESET"B es %.2f\n",
-							resultDiv);
+					printf("El resultado de A"BHMAG"/"RESET"B es %.2f\n", resultDiv);
 				}
 				else
 				{
-					printf(
-							BHRED "ERROR. " RESET "Segundo operando invalido para realizar division. " BHYEL "No debe ser 0\n" RESET);
+					printf(BHRED "ERROR. " RESET "Segundo operando invalido para realizar division. " BHYEL "No debe ser 0\n" RESET);
 				}
 
 				printf("El resultado de A"BHMAG"*"RESET"B es %.2f\n",
 						resultMult);
-				printf(
-						"El factorial de A es: %I64d y El factorial de B es: %I64d\n",
-						resultFactPrim, resultFactSeg);
+				if(flagFactPrim)
+				{
+					printf("El factorial de A es: %I64d ", resultFactPrim);
+				}
+				else
+				{
+					printf(BHRED "ERROR. " RESET "No se pudo calcular el factorial de A. " BHYEL "No debe ser 0 ni mayor que %d\n" RESET, MAX_INT_FACT);
+				}
+
+				if(flagFactSeg)
+				{
+					printf("y El factorial de B es: %I64d\n", resultFactSeg);
+				}
+				else
+				{
+					printf(BHRED "ERROR. " RESET "No se pudo calcular el factorial de B. " BHYEL "No debe ser 0 ni mayor que %d\n" RESET, MAX_INT_FACT);
+				}
 			}
 			else
 			{
@@ -151,7 +167,6 @@ int main(void)
 	} while (resp == 's');
 
 	return EXIT_SUCCESS;
-	return EXIT_SUCCESS;
 }
 
 char menu(int *x, int *y, int flagX, int flagY)
@@ -163,26 +178,20 @@ char menu(int *x, int *y, int flagX, int flagY)
 
 	if (flagX)
 	{
-		printf(
-				BHWHT"1."RESET" Ingresar 1er operando (A=" BHGRN "%d" RESET ")\n",
-				*x);
+		printf(BHWHT"1."RESET" Ingresar 1er operando (A=" BHGRN "%d" RESET ")\n", *x);
 	}
 	else
 	{
-		printf(
-				BHWHT"1."RESET" Ingresar 1er operando (A=" BHYEL "X" RESET ")\n");
+		printf(BHWHT"1."RESET" Ingresar 1er operando (A=" BHYEL "X" RESET ")\n");
 	}
 
 	if (flagY)
 	{
-		printf(
-				BHWHT"2."RESET" Ingresar 2do operando (B=" BHGRN "%d" RESET ")\n",
-				*y);
+		printf(BHWHT"2."RESET" Ingresar 2do operando (B=" BHGRN "%d" RESET ")\n", *y);
 	}
 	else
 	{
-		printf(
-				BHWHT"2."RESET" Ingresar 2do operando (B=" BHYEL "Y" RESET ")\n");
+		printf(HWHT"2."RESET" Ingresar 2do operando (B=" BHYEL "Y" RESET ")\n");
 	}
 
 	printf(BHWHT"3."RESET" Calcular todas las " BHMAG "operaciones\n" RESET);
